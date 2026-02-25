@@ -1,4 +1,4 @@
-"use cliet";
+"use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -24,13 +24,13 @@ export function EmployeeHeader({
   avatarUrl,
 }: EmployeeHeaderProps) {
   const initials = name
-    .split("")
+    .split(" ")
     .map((n) => n[0])
     .join("")
     .toUpperCase();
 
   return (
-    <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm: justify-between">
+    <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
       <div className="flex items-start gap-4">
         <Avatar className="h-16 w-16 border-2 border-border">
           <AvatarImage src={avatarUrl || "/placeholder.svg"} alt={name} />
@@ -42,10 +42,16 @@ export function EmployeeHeader({
           <h1 className="text-2xl font-medium tracking-tight text-foreground">
             {name}
           </h1>
-          <p className="text-base text-muted-foreground">{role}</p>
-          <Badge variant="secondary" className="mt-2 font-medium">
+          {/* <p className="text-base text-muted-foreground">{role}</p> */}
+          {role && <p className="text-base text-muted-foreground">{role}</p>}
+          {/* <Badge variant="secondary" className="mt-2 font-medium">
             {team}
-          </Badge>
+          </Badge> */}
+          {team && (
+            <Badge variant="secondary" className="mt-2 font-medium">
+              {team}
+            </Badge>
+          )}
         </div>
       </div>
       <div className="flex flex-wrap gap-4 text-sm text-muted-foreground sm:flex-col sm:items-end sm:gap-2">
@@ -59,7 +65,7 @@ export function EmployeeHeader({
         </div>
         <div className="flex items-center gap-2">
           <Calendar className="h-4 w-4" />
-          <span>Joined{joinDate}</span>
+          <span>Joined {joinDate}</span>
         </div>
       </div>
     </div>
